@@ -3,8 +3,20 @@
 // redux helps change state in response to context actions
 
 export default (state, action) => {
-    switch (action.type) { //delete trnasaction, add transaction, default
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case "DELETE_TRANSACTION":
+      return {
+        ...state, //spread operator
+        transactions: state.transactions.filter(
+          (transaction) => transaction.id !== action.payload
+        ),
+      };
+    case "ADD_TRANSACTION":
+      return {
+        ...state, //spread operator
+        transactions: [...state.transactions, action.payload],
+      };
+    default:
+      return state;
+  }
 };

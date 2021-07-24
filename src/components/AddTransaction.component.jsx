@@ -1,16 +1,22 @@
 import React, { useState, useContext } from "react";
 import { GlobalContext } from "../context/GlobalState";
 
-
-
 export const AddTransaction = (props) => {
   const [text, setText] = useState("");
   const [amount, setAmount] = useState(0);
-  const { transactions } = useContext(GlobalContext);
+  const { addTransaction } = useContext(GlobalContext);
 
+  const addNewTransaction = (e) => {
+    e.preventDefault(); //prevents reloading
 
+    const newTransaction = {
+      id: Math.random(),
+      text: text, // can be simply written as text
+      amount: +amount, // plus sign makes sure it is read as a number
+    };
 
-
+    addTransaction(newTransaction);
+  };
 
   return (
     <div>
@@ -36,7 +42,9 @@ export const AddTransaction = (props) => {
             onChange={(e) => setAmount(e.target.value)}
           ></input>
         </div>
-        <button className="btn" onClick={console.log(text)}>Add transaction</button>
+        <button className="btn" onClick={addNewTransaction}>
+          Add transaction
+        </button>
       </form>
     </div>
   );
